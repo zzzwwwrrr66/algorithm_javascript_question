@@ -9,22 +9,25 @@ console.log(n, m, nums);
 
 let cnt = 0;
 let answerArr = [];
-
+let sum = 0;
 let i = 0;
-while (i < nums.length) {
-  let sum = nums[i];
-  let movingIdx = i + 1;
-  if(nums[i] === m) {
+let j = 0;
+while (j < nums.length) {
+  sum += nums[i];
+  if(sum > 6) {
+    sum = 0;
+    j++;
+    i = j;
+  } 
+  else if(sum === 6) {
+    sum = 0;
     cnt++;
-    i++;
+    j++;
+    i = j;
+  } else if(sum < 6) {
+    i++;  
   } else {
-    if(nums[i] < m) {
-      sum = "";
-    } else {
-
-    }
+    j++;
   }
-  
-   
-
 }
+console.log(cnt);
