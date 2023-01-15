@@ -10,7 +10,7 @@ function hashCount (string) {
     if(!obj[string[i]]) obj[string[i]] = 0;
     obj[string[i]]++;
   }
-  return obj
+  return obj;
 }
 
 function solution (input) {
@@ -19,29 +19,26 @@ let hashCnt = {}
 let j = 0;
 let result = [];
 for(let i = 0; i < S.length; i++) {
-if(input[S[i]]) {
-j = i;
-while(j < i + 3) {
-if(input[S[j]]) {
-  hashCnt[S[j]] = 1;
-}
-
-
-j++;
-}
-} else {
-hashCnt = {}
-}
-if(Object.values(hashCnt).length === 3) {
-  result.push(hashCnt);
-  cnt++;
-  hashCnt = {}
-} else {
-  hashCnt = {}
-}
+  if(input[S[i]]) {
+    j = i;
+    while(j < i + 3) {
+      if(input[S[j]]) {
+        hashCnt[S[j]] = 1;
+      }
+      j++;
+    }
+  } else {
+    hashCnt = {}
+  }
+  if(Object.values(hashCnt).length === 3) {
+    result.push(hashCnt);
+    cnt++;
+    hashCnt = {}
+  } else {
+    hashCnt = {}
+  }
 }
 return {cnt, result}
-  
 }
 const ana = hashCount(T)
 solution(ana);

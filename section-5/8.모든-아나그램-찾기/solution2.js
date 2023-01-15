@@ -2,22 +2,53 @@ const fs = require('fs');
 const path = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
 const input = fs.readFileSync(path).toString().split("\n")
 const [S, T] = input;
+console.log("input", S, T);
 
-function hashCount (string) {
-  const obj = {};
-  const leng = string.length;
+function hashMap (string, leng = string.length) {
+  const map = new Map();
   for(let i = 0; i < leng; i++) {
-    if(!obj[string[i]]) obj[string[i]] = 0;
-    obj[string[i]]++;
+    const currentWord = string[i];
+    if(!map.get(currentWord)) map.set(currentWord, 1);
+    else map.set(currentWord, map.get(currentWord) + 1);
   }
-  return obj
+  return map;
+}
+const compareMaps = (mapA, mapB) => {
+  if(mapA.size !== mapB.size ) return false;
+  for([key, val] of mapA) {
+    if(!mapB.has(key)) return false;
+    if(val !== mapB.get(key)) return false;
+  }
+  return true;
 }
 
+const solution = (stringA, stringB) => {
+  const leng = stringB.length - 1
+  const sMap = hashMap(stringA, leng);
+  const tMap = hashMap(stringB);
+  let resultCnt = 0;
+  
+  let lt = 0;
+  for(let rt = leng ;rt < stringA.length; rt++) {  
+    const currentWord = stringA[rt];
+    const deleteWord = stringA[lt];
+    // 1. add currentWord to sMap
+    if(!sMap.get(currentWord)) sMap.set(currentWord, 1);
+    else sMap.set(currentWord, sMap.get(currentWord) + 1);
 
-const ana = hashCount(T);
-console.log("🚀 ~ file: solution2.js:18 ~ ana", ana);
+    // 2. compare Maps with sMap, tMap and cnt++ or not
+    if(compareMaps(tMap, sMap)) resultCnt++;
 
+    // 3. delete stringA[lt] on sMap
+    sMap.set(deleteWord, sMap.get(deleteWord) - 1);
+    if(sMap.get(deleteWord)===0) sMap.delete(deleteWord);
+    lt++;
+  }
 
+  console.log(resultCnt);
+  
+}
+solution(S, T);
 
 // function solution(m, arr){
 //   let answer = 0;
@@ -34,18 +65,3 @@ console.log("🚀 ~ file: solution2.js:18 ~ ana", ana);
 //   }        
 //   return answer;
 // }
-
-let lt = 0;
-let compareHash = {};
-let cnt = 0;
-let sum = 0;
-for(let i = 0; i < S.length; i++) {
-  if(ana[S[i]]) {
-    compareHash[S[i]] = 1;
-    sum++;
-    while(sum >= 3) {
-      
-    }
-  }
- // sum += hash[i]
-}
