@@ -1,14 +1,24 @@
 const fs = require('fs');
 const path = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
 const input = fs.readFileSync(path).toString();
-const inputLocal = "()(((()())(())()))(())";
-// 연속적인 ")" 면 1개만 추가 
-function solution() {
+const inputLocal = "(((()(()()))(())()))(()())"
+
+// 연속적인 ")" 면 1개씩만 추가 
+function solution(input) {
   let stack = [];
   let answer = 0;
-  for(let x of input) {
+  let prev = "";
+  for(let i = 0; i < input.length; i++) {
+    const x = input[i];
+    if(prev === ")" && x === ")") {
+      answer+= 1;
+      prev = x;
+      stack.pop();
+      continue;
+    };
+    prev = x;
+
     if(x === "(") {
-      console.log(x);
       stack.push(x);
     } else if (x === ")") {
       stack.pop();
@@ -19,6 +29,5 @@ function solution() {
   return answer;
 }
 console.log(
-  solution(inputLocal)
+  solution(input)
 )
-
