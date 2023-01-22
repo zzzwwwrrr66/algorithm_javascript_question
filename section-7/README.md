@@ -18,3 +18,8 @@
 - 2 loop i = 1, j = i - 1; i--;
 - "temp = arr[i]" 를 정해놓고 올바른 위치를 찾아간다고 생각하면 편하다 
 - 
+
+
+## 그리디 정렬 
+- 이런상태의 배열의 정렬이 되어 있어야 한다 [[number, number], [number, number], [number, number]]
+### 8. 회의실 배정
