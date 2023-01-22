@@ -3,6 +3,7 @@ const path = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
 const [nums] = fs.readFileSync(path).toString().split("\n").map(v=>v.split(" ").map(v=>v*1));
 console.log(nums);
 // const nums = [ 11, 7, 5, 6, 10, 9 ];
+// tmp의 자리를 계속 찾아간다 
 for(let i = 1; i < nums.length; i++) {
   let tmp = nums[i];
   for(let j = i - 1; j >= 0; j--) {
