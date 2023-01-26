@@ -41,8 +41,9 @@
 
 ---
 
-## 이분검색 ⭐︎
+## 이분검색(binary search) ⭐︎
 - O(log n) 속도 O(n) 보다 빠르다 
 - sort 가 전제조건 
 - lt, rt, mid( Math.floor(lt + rt / 2) )
 - 찾는 숫자가 mid 보다 크면  rt = mid + 1; 작으면 lt = mid - 1;
+- 결정알고리즘 
