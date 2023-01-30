@@ -47,3 +47,5 @@
 - lt, rt, mid( Math.floor(lt + rt / 2) )
 - 찾는 숫자가 mid 보다 크면  rt = mid + 1; 작으면 lt = mid - 1;
 - 결정알고리즘 
+- n, m 이 주어지는데 보통 m 이 카운터 기준? 
+- lt, rt 의 기준을 잘 정하자
