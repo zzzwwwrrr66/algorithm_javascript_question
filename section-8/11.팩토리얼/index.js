@@ -6,7 +6,7 @@ const input = N * 1;
 let xx = 1;
 // # 팩토리얼
 // 팩토리얼 마지막 수가 return 을 해줌으로써,
-// 정의했던 함수들도 다 리턴 값으로 만들어진다
+// 호출했던 함수들도 다 값으로 만들어진다
 function solve (L) {
   if(L === 1) {
     return 1;
