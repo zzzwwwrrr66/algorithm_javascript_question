@@ -4,23 +4,20 @@ const path = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
 const m = 3;
 const coin = [1, 2 ,5];
 const price = 15;
-function solution(n, m){
-  let answer=[];
-  let tmp=Array.from({length:m}, ()=>0);
-  function DFS(L){
-    if(L===m){
-      console.log(L);
-      answer.push(tmp.slice());
+let min = Infinity;
+let answer;
+let str = "";
+let arrs = [];
+function solve(L, sum, val) {
+  if(sum > price) return; 
+  if(answer <= L) return;
+  if (sum === price) {
+    answer = Math.min(L, min);
+  } else {
+    for(let i = 0; i < coin.length; i++) {
+      solve(L + 1, sum + coin[i]);
     }
-    else{
-      for(let i=1; i<=n; i++){
-        tmp[L]=i;
-        DFS(L+1);
-      }
-    }   
   }
-  DFS(0);
-  return answer;
 }
-
-console.log(solution(n, m));
+solve(0, 0);
+console.log(answer);
