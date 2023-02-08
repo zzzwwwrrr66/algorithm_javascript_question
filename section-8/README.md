@@ -5,3 +5,15 @@
 
 # 조합수 
 1~n 가 있고 m개의 방법의 수를 뽑는 방법은 [조합의 수] 를 가르킨다 
+
+```javascript
+DFS(level, startIndex) {
+  if(level === m) {
+    return 
+  }
+
+  for(let i = startIndex; i < n; i++) {
+    DFS(level + 1, startIndex + 1)
+  }
+}
+```
