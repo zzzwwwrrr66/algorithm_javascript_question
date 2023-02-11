@@ -6,48 +6,47 @@ fs
 .toString()
 .split("\n")
 .map(v=>(v.split(" ").map(v=> v * 1)));
-/*
-[
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 1, 0],
-  [0, 0, 0, 1, 0, 0, 0],
-  [1, 1, 0, 1, 0, 1, 1],
-  [1, 1, 0, 0, 0, 0, 1],
-  [1, 1, 0, 1, 1, 0, 0],
-  [1, 0, 0, 0, 0, 0, 0]
-]
-*/
-function solution (arr) {
-  // const check = Array.from({length: input.length}, ()=>0);
-  // const path = [];
 
-  // x, y 값을 미리 설정 
+
+
+/*
+  7 격자판 미로를 탈출하는 경로의 가지수를 출력하는 프로그램을 작성하세요. 
+  출발점은 격 자의 (1, 1) 좌표이고, 탈출 도착점은 (7, 7)좌표이다. 
+  격자판의 1은 벽이고, 0은 통로이다. 격 자판의 움직임은 상하좌우로만 움직인다. 미로가 다음과 같다면
+ */
+console.log(input, input.length);
+
+
+function solve(x, y, board) {
+  // 0, 0 start point;
+  // x y 12, 3, 6, 9
   const dx = [-1, 0, 1, 0];
   const dy = [0, 1, 0, -1];
   let answer = 0;
   function DFS(x, y) {
     if(x === 6 && y === 6) {
-      // console.log(check);
-      answer++;
+      answer++
       return;
     } else {
-        // 12, 3, 6, 9 시 순으로 돌기
-      for(let i = 0; i < 4; i++) { // check x,y && arr[ny][nx] === 0
+      for(let i = 0; i < 4; i++) {
         let nx = x + dx[i];
         let ny = y + dy[i];
-        if( nx >= 0 && nx <= 6 && 
-          ny >= 0 && ny <= 6 && 
-          arr[nx][ny] === 0
-        ) {
-          arr[nx][ny] = 1;
+        // -1 아닐때 6 안넘어갈때, 가는쪽이 1이 아닐때, 
+        if(nx > -1 && nx <= 6 && ny > -1 && ny <= 6 && board[nx][ny] === 0) {
+          // 갔던길을 1 바꾼다, 
+          board[nx][ny] = 1;
+          // recursion dfs
           DFS(nx, ny);
-          arr[nx][ny] = 0;
-        }; 
+          // 돌아올때 0 으로 돌린다 
+          board[nx][ny] = 0;
+        }
       }
     }
   }
-  arr[0][0] = 1;
-  DFS(0, 0);
-  console.log(answer);
+  board[0][0] = 1;
+  DFS(x, y);
+  return answer;
 }
-solution(input);
+console.log(
+solve(0, 0, input)
+)
