@@ -16,21 +16,15 @@ fs
 */
 // nv = [1, -1, 5]
 
-function solve(start, target, Q = []) {
-  const check = Array.from({length: 10001}, ()=>0);
-  function BFS(L, start) {
-    if(check[start] === 1) return L;
-    if(start === target) {
-      return L;
-    } else {
-      for(let nv of [1, -1, 5]) {
-        check[start] = 1;
-        BFS(L + 1, start + nv);
-      }
-    }
+console.log(start, target);
+
+const dx = [1, -1, 5];
+function recursion(L, x) {
+  if(L > target) return;
+  if(x > target) return;
+  if(x === target) return L;
+  
+  for(let i = 0; i < dx.length; i++) {
+    recursion(L + 1, dx[i]);
   }
-  BFS(0, start)
 }
-console.log(
-  solve(start, target)
-);
