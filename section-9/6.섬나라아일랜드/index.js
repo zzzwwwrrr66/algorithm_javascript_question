@@ -1,17 +1,58 @@
 const fs = require('fs');
 const path = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
-const [start, target] = 
+const [N, ...nums] = 
 fs
 .readFileSync(path)
 .toString()
-.split(" ")
-.map(v=>v*1);
+.split("\n")
 
-/* 
-현수는 송아지를 잃어버렸다. 다행히 송아지에는 위치추적기가 달려 있다. 
-현수의 위치와 송아 지의 위치가 수직선상의 좌표 점으로 주어지면 
-현수는 현재 위치에서 송아지의 위치까지 다음 과 같은 방법으로 이동한다.송아지는 움직이지 않고 제자리에 있다.
-현수는 스카이 콩콩을 타고 가는데 한 번의 점프로 앞으로 1, 뒤로 1, 앞으로 5를 이동할 수 있다. 
-최소 몇 번의 점프로 현수가 송아지의 위치까지 갈 수 있는지 구하는 프로그램을 작성 하세요.
-*/
-// nv = [1, -1, 5]
+
+const board = nums.map(v=>v.split("").map(v=>v*1));
+
+
+// 8방향 시계방향으로 
+// const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+// const dy = [0, 1, 1, 1, 0, -1, -1, -1];
+
+ 
+
+
+function solve(board) {
+  const check = Array.from(Array(N), ()=>Array(N).fill(0));
+  console.log(check);
+  const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+  const dy = [0, 1, 1, 1, 0, -1, -1, -1];
+  let answer = 0;
+
+  for(let i = 0; i < N; i++) {
+    for(let j = 0; j < N; j++) {
+      const Q = [];
+      if(board[i][j] === 1) {
+        Q.push([i, j]);
+        board[i][j] = 0;
+        while(Q.length) {
+          let [x, y] = Q.shift();
+          for(let i = 0; i <= N; i++) {
+            let nx = x + dx[i];
+            let ny = y + dy[i]
+             // board[x][y] === 1이면 들어감, 체크된거는 0 으로 바꾸기
+            if(nx > -1 && nx < N && ny > -1 && ny < N && board[nx][ny] === 1) {
+              board[nx][ny] = 0;
+              Q.push([nx, ny]);
+            }
+          }
+        }
+        answer++
+      }
+    }
+  }
+
+ 
+  // -1 보다 크거나, N보다 작거나 같을때, board[x][y] === 1일때
+  
+  return answer
+  
+}
+console.log(
+solve(board)
+)
